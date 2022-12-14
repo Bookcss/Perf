@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Perf</title>
+  <script src="fmp.js"></script>
+  <!-- <script src="zz-perf.js"></script> -->
+</head>
+<body>
+<div id="app">
+  <!-- <div style="background-image:url('https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png');">
+  </div> -->
+  <!-- <div style="background-image:url('https://pic2.zhuanstatic.com/zhuanzh/82388bb4-dfdc-4bee-a2d5-afcac804d28d.png');">
+    <div style="background-image:url('https://pic5.zhuanstatic.com/zhuanzh/5a79da84-0b37-4541-99e3-8d41974e5ac7.png');">
+    </div>
+  </div> -->
+  <!-- <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic2.zhuanstatic.com/zhuanzh/82388bb4-dfdc-4bee-a2d5-afcac804d28d.png" alt="">
+  <img src="https://pic2.zhuanstatic.com/zhuanzh/82388bb4-dfdc-4bee-a2d5-afcac804d28d.png" alt="">
+  <div style="background-image:url('https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png');">
+  </div> -->
+  <!-- <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt=""> -->
+  <!-- <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt=""><img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt=""><img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">
+  <img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt=""> -->
+</div>
+<script>
+let box = document.querySelector('#app');
+var div = document.createElement('div')
+div.innerHTML = '22222'
+box.appendChild(div)
+
+var time = null
+var num = 0
+time = setInterval(()=> {
+  var div1 = document.createElement('div')
+  // div1.innerHTML = '<img src="https://pic3.zhuanstatic.com/zhuanzh/50a8a5d6-d767-4fcd-84ff-2b38cce04282.png" alt="">'
+  if(num === 2) {
+    div1.innerHTML = '<img src="https://pic4.zhuanstatic.com/zhuanzh/58381e49-709a-48b5-96a7-d550379f5e8b.png" alt="">'
+  } else {
+    if (num%2 == 0) {
+      div1.innerHTML = `<div style="background-image:url('');"></div>`
+    } else {
+      div1.innerHTML = '<img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">'
+    }
+  }
+  box.appendChild(div1)
+  num++;
+    if(num > 3) {
+    clearInterval(time)
+    time = null
+  }
+}, 500)
+</script>
+</body>
+</html>
