@@ -11,26 +11,6 @@ const firstImgArr = []
 // 定时检查间隔
 const checkInterval = 500
 
-// 获取首屏的所有图片地址
-function getAllImg(el) {
-	const tagName = el.tagName;
-	const childList = el.children;
-	if (tagName !== 'BODY' && tagName !== 'SCRIPT' && tagName !== 'STYLE' && tagName !== 'HEAD') {
-		if (!(el.getBoundingClientRect && el.getBoundingClientRect().top < windowHeight)) return;
-		if (tagName === 'IMG') {
-			firstImgArr.push(el.src)
-		} else {
-			const style = el.currentStyle || window.getComputedStyle(el, false)
-			if (style.backgroundImage !== 'none') {
-				firstImgArr.push(style.backgroundImage.slice(4, -1).replace(/"/g, ""))
-			}
-		}
-	}
-	for (let index = 0; index < childList.length; index++) {
-		getAllImg(childList[index])
-	}
-}
-
 class Perf {
 	constructor(options) {
 		// dom观察
@@ -102,6 +82,7 @@ class Perf {
 	calculateFinalScore() {
 		this.filterScore()
 		let isCheckFmp = false
+		// 当前时间减去页面开始加载前时间
 		const time = Date.now() - performance.timing.fetchStart;
 		// 判断是否超过30s,超过则默认dom更新完毕
 		if (time > 30000) isCheckFmp = true
@@ -112,7 +93,7 @@ class Perf {
 		if (isCheckFmp) {
 			this.observer.disconnect();
 			const record = this.getMaxChangeDom()
-			if(record) this.fmp = record?.t.toFixed()
+			if (record) this.fmp = record?.t.toFixed()
 			clearTimeout(this.timer)
 			this.timer = null
 			getAllImg(document.body)
@@ -170,10 +151,29 @@ class Perf {
 	}
 }
 
+// 获取首屏的所有图片地址
+function getAllImg(el) {
+	const tagName = el.tagName;
+	const childList = el.children;
+	if (tagName !== 'BODY' && tagName !== 'SCRIPT' && tagName !== 'STYLE' && tagName !== 'HEAD') {
+		if (!(el.getBoundingClientRect && el.getBoundingClientRect().top < windowHeight)) return;
+		if (tagName === 'IMG') {
+			firstImgArr.push(el.src)
+		} else {
+			const style = el.currentStyle || window.getComputedStyle(el, false)
+			if (style.backgroundImage !== 'none') {
+				firstImgArr.push(style.backgroundImage.slice(4, -1).replace(/"/g, ""))
+			}
+		}
+	}
+	for (let index = 0; index < childList.length; index++) {
+		getAllImg(childList[index])
+	}
+}
 
 // 调用
 new Perf({
-	getFmp: (fmp)=> {
+	getFmp: (fmp) => {
 		console.log('获取fmp时长:' + fmp)
 	}
 })
