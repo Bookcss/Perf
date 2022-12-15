@@ -98,9 +98,9 @@ class Perf {
 			this.timer = null
 			getAllImg(document.body)
 			const imgFmp = this.getMaxImgLoadTime().toFixed()
-			console.log('dom已经更新完毕，fmp:' + this.fmp)
+			console.log('fmp:' + this.fmp)
 			this.fmp < imgFmp ? this.fmp = imgFmp : ''
-			console.log('与图片对比后的fmp:' + this.fmp)
+			console.log('imgFmp:' + this.fmp)
 			this.options.getFmp && typeof this.options.getFmp === 'function' && this.options.getFmp(this.fmp)
 		} else {
 			// console.log(time)
