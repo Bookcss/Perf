@@ -53,18 +53,18 @@ time = setInterval(()=> {
     div1.innerHTML = '<img src="https://pic4.zhuanstatic.com/zhuanzh/58381e49-709a-48b5-96a7-d550379f5e8b.png" alt="">'
   } else {
     if (num%2 == 0) {
-      div1.innerHTML = `<div style="background-image:url('');"></div>`
+      div1.innerHTML = `<div style="background-image:url('https://pic4.zhuanstatic.com/zhuanzh/58381e49-709a-48b5-96a7-d550379f5e8b.png');"></div>`
     } else {
       div1.innerHTML = '<img src="https://pic1.zhuanstatic.com/zhuanzh/fca6e8f4-d213-4b3e-979b-b25584db0a47.png" alt="">'
     }
   }
   box.appendChild(div1)
   num++;
-    if(num > 3) {
+  if(num > 0) {
     clearInterval(time)
     time = null
   }
-}, 500)
+}, 200)
 </script>
 </body>
 </html>

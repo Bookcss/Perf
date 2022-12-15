@@ -86,8 +86,8 @@ class Perf {
 		const time = Date.now() - performance.timing.fetchStart;
 		// 判断是否超过30s,超过则默认dom更新完毕
 		if (time > 30000) isCheckFmp = true
-		// 判断打点超过4个&&当前时间减去最后一个dom更新的时间差，如果大于1s，则默认dom已经更新完毕
-		if (scoreArr && scoreArr.length > 4 && time - (scoreArr[scoreArr.length - 1].t || 0) > 2 * checkInterval) isCheckFmp = true
+		// 判断打点超过1个(之前4个)&&当前时间减去最后一个dom更新的时间差，如果大于1s，则默认dom已经更新完毕
+		if (scoreArr && scoreArr.length > 0 && time - (scoreArr[scoreArr.length - 1].t || 0) > 2 * checkInterval) isCheckFmp = true
 		// 判断onload时间是否执行完成 && 打点超过10个 && 最后一个dom更新的分数，跟倒数第9个dom的分数看是否一直，如果一致，则表示dom已经不在变化
 		if (window.performance.timing.loadEventEnd !== 0 && scoreArr.length > 10 && scoreArr[scoreArr.length - 1].score === scoreArr[scoreArr.length - 9].score) isCheckFmp = true
 		if (isCheckFmp) {
@@ -98,10 +98,12 @@ class Perf {
 			this.timer = null
 			getAllImg(document.body)
 			const imgFmp = this.getMaxImgLoadTime().toFixed()
-			this.fmp < imgFmp ? this.fmp = imgFmp : ''
 			console.log('dom已经更新完毕，fmp:' + this.fmp)
+			this.fmp < imgFmp ? this.fmp = imgFmp : ''
+			console.log('与图片对比后的fmp:' + this.fmp)
 			this.options.getFmp && typeof this.options.getFmp === 'function' && this.options.getFmp(this.fmp)
 		} else {
+			// console.log(time)
 			clearTimeout(this.timer)
 			this.timer = setTimeout(() => {
 				this.calculateFinalScore()
