@@ -30,9 +30,10 @@ class Perf {
 	// 监听dom变化
 	mutationObserver() {
 		this.observer && this.observer.disconnect();
-		this.observer = new MutationObserver(() => {
+		this.observer = new MutationObserver((list) => {
 			const t = new Date() - performance.timing.fetchStart
 			const body = document.body;
+			// console.log(list, 'list')
 			scoreArr.push({
 				score: body ? this.calculateScore(body, 1, false) : 0,
 				t
@@ -87,7 +88,8 @@ class Perf {
 		// 判断是否超过30s,超过则默认dom更新完毕
 		if (time > 30000) isCheckFmp = true
 		// 判断打点超过1个(之前4个)&&当前时间减去最后一个dom更新的时间差，如果大于1s，则默认dom已经更新完毕
-		if (scoreArr && scoreArr.length > 0 && time - (scoreArr[scoreArr.length - 1].t || 0) > 2 * checkInterval) isCheckFmp = true
+		console.log(time, time - (scoreArr[scoreArr.length - 1].t), 2 * checkInterval)
+		if (scoreArr && scoreArr.length && scoreArr.length > 4 && time > 10000 && time - (scoreArr[scoreArr.length - 1].t || 0) > 2 * checkInterval) isCheckFmp = true;
 		// 判断onload时间是否执行完成 && 打点超过10个 && 最后一个dom更新的分数，跟倒数第9个dom的分数看是否一直，如果一致，则表示dom已经不在变化
 		if (window.performance.timing.loadEventEnd !== 0 && scoreArr.length > 10 && scoreArr[scoreArr.length - 1].score === scoreArr[scoreArr.length - 9].score) isCheckFmp = true
 		if (isCheckFmp) {
@@ -179,3 +181,5 @@ new Perf({
 		console.log('获取fmp时长:' + fmp)
 	}
 })
+
+
